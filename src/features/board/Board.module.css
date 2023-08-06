@@ -1,65 +1,106 @@
-.app-project {
+.appProject {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     height: 100vh;
 }
 
-.app-project-header {
-    background-color: #333;
-    color: #fff;
+.appProjectHeader {
+    color: #000;
     padding: 16px;
-    text-align: center;
 }
 
-.app-project-board {
+.appProjectBoard {
     display: flex;
     flex-direction: row;
-    flex: 1;
-    background-color: #f2f2f2;
+    background-color: #fff;
     padding: 16px;
 }
 
-.app-project-board-column {
+.appProjectBoardColumn {
     display: flex;
     flex-direction: column;
     width: 200px;
-    height: 600px;
-    background-color: #fff;
+    min-height: 200px;
+    height: fit-content;
+    background-color: #f4f5f7;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     margin-right: 16px;
-    padding: 16px;
+    padding: 4px;
 }
 
-.app-project-board-column-add-issue {
+.appProjectBoardColumnHeader {
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+    padding: 8px;
+}
+
+.appProjectBoardColumnAddIssue {
     display: flex;
     flex-direction: column;
     margin-top: 8px;
 }
 
-.app-project-board-column-add-issue-confirm-button {
+.appProjectBoardColumnAddIssue input {
+    padding: 10px;
+    border: none;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.appProjectBoardColumnAddIssue input:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.appProjectBoardColumnAddIssueConfirmButton {
     margin-top: 8px;
     background-color: #4caf50;
     color: #fff;
     border: none;
-    padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
+    height: 25px;
+    width: 25px;
 }
 
-.app-project-board-column-add-button {
+.appProjectBoardColumnAddIssueConfirmButton::after {
+    content: "\2713";
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.appProjectBoardColumnAddButton {
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: #ccc;
     color: #333;
+    background-color: transparent;
     height: 40px;
+    border: none;
     font-weight: bold;
     cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out;
 }
 
-.app-project-board-column-issue {
+.appProjectBoardColumnAddButton:hover {
+    background-color: #e2e4e9;
+}
+
+.showOnHoverButton {
+    opacity: 0;
+    transition: opacity 0.05s ease-in-out;
+}
+
+.appProjectBoardColumn:hover .showOnHoverButton {
+    opacity: 1;
+}
+
+.appProjectBoardColumnIssue {
     margin-bottom: 8px;
     background-color: #f9f9f9;
     padding: 8px;

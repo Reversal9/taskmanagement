@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import {
+    toDo,
     addIssue
 } from './boardSlice';
 import {
@@ -27,6 +28,11 @@ export function Column({title, listId, selectIssues}) {
     return (
         <div
             className = {styles.appProjectBoardColumn}>
+                <div
+                    className = {styles.appProjectBoardColumnHeader}>
+                        <span>{`${title} ${issues.length ? issues.length : ""}`}</span>
+                </div>
+
                 {issues.map(issue => {
                     return <Issue
                         id = {issue.id}
@@ -54,12 +60,12 @@ export function Column({title, listId, selectIssues}) {
                                 dispatch(increment());
                                 setNewIssue(null);
                                 setIsAddingIssue(false);
-                                }}>
+                            }}>
                             </button>
                     </div>
                 ) : (
                     <button
-                        className = {styles.appProjectBoardColumnAddButton}
+                        className = {`${styles.appProjectBoardColumnAddButton} ${listId === toDo.id ? "" : styles.showOnHoverButton}`}
                         onClick = {() => {
                         const newIssue = {
                             id: id,
@@ -70,6 +76,7 @@ export function Column({title, listId, selectIssues}) {
                         setNewIssue(newIssue);
                         setIsAddingIssue(true);
                     }}>
+                        + Create issue
                     </button>
                 )}
         </div>
