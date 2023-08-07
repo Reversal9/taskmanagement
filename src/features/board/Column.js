@@ -20,9 +20,9 @@ export function Column({title, listId, selectIssues}) {
     const [isAddingIssue, setIsAddingIssue] = useState(false);
 
     function handleSummaryChange(summary) {
-        setNewIssue(issue => {
-            return {...issue, summary: {summary}};
-        })
+        setNewIssue(prevIssue => {
+            return {...prevIssue, summary: summary};
+        });
     }
 
     return (
@@ -56,26 +56,25 @@ export function Column({title, listId, selectIssues}) {
                             <button
                                 className = {styles.appProjectBoardColumnAddIssueConfirmButton}
                                 onClick = {() => {
-                                dispatch(addIssue(newIssue));
-                                dispatch(increment());
-                                setNewIssue(null);
-                                setIsAddingIssue(false);
-                            }}>
+                                    dispatch(addIssue(newIssue));
+                                    dispatch(increment());
+                                    setNewIssue(null);
+                                    setIsAddingIssue(false);
+                                }}>
                             </button>
                     </div>
                 ) : (
                     <button
                         className = {`${styles.appProjectBoardColumnAddButton} ${listId === toDo.id ? "" : styles.showOnHoverButton}`}
                         onClick = {() => {
-                        const newIssue = {
-                            id: id,
-                            summary: "",
-                            assignees: [],
-                            listId: listId
-                        }
-                        setNewIssue(newIssue);
-                        setIsAddingIssue(true);
-                    }}>
+                            setNewIssue({
+                                id: id,
+                                summary: "",
+                                assignees: [],
+                                listId: listId
+                            });
+                            setIsAddingIssue(true);
+                        }}>
                         + Create issue
                     </button>
                 )}

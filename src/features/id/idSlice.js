@@ -18,6 +18,6 @@ export const {
     increment
 } = idSlice.actions;
 
-export const selectId = (state) => state.value;
+export const selectId = (state) => state.id.value;
 
 export default idSlice.reducer;

@@ -9,7 +9,11 @@ export function Issue({id, summary, assignees}) {
     const dispatch = useDispatch();
 
     function handleSummaryChange(summary) {
-        dispatch(editSummary(summary));
+        dispatch(editSummary({
+            id: id,
+            summary: summary,
+            assignees: assignees
+        }));
     }
 
     return (
@@ -24,6 +28,8 @@ export function Issue({id, summary, assignees}) {
                         handleSummaryChange(e.target.value);
                     }}
                 />
+                <br/>
+                <span>{`I-${id}`}</span>
         </div>
     );
 }
