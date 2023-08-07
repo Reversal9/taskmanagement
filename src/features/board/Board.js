@@ -16,8 +16,20 @@ export function Board() {
             className ={styles.appProject}>
                 <div
                     className = {styles.appProjectHeader}>
-                        <p>Project Name</p>
+                        <div
+                            className = {styles.appProjectHeaderDirectory}>
+                                <span>Projects &nbsp; / &nbsp; Project Name</span>
+                        </div>
+                        <div
+                            className = {styles.appProjectHeaderName}>
+                                <h1>PN board</h1>
+                        </div>
+                        <div
+                            className = {styles.appProjectHeaderAssignees}>
+
+                        </div>
                 </div>
+
                 <div
                     className = {styles.appProjectBoard}>
                         <Column

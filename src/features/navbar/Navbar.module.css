@@ -1,0 +1,5 @@
+.appNavBar {
+    height: 56px;
+    display: flex;
+    flex-direction: row;
+}

@@ -19,17 +19,25 @@ export function Issue({id, summary, assignees}) {
     return (
         <div
             className = {styles.appProjectBoardColumnIssue}>
-                <input
-                    type = "text"
-                    name = "summary"
-                    placeholder = "What needs to be done?"
-                    value = {summary}
-                    onChange = {(e) => {
-                        handleSummaryChange(e.target.value);
-                    }}
-                />
-                <br/>
-                <span>{`I-${id}`}</span>
+                <div
+                    className = {styles.appProjectBoardColumnIssueRow}>
+                        <input
+                            type = "text"
+                            name = "summary"
+                            placeholder = "What needs to be done?"
+                            value = {summary}
+                            onChange = {(e) => {
+                                handleSummaryChange(e.target.value);
+                            }}
+                        />
+                </div>
+                <div
+                    className = {styles.appProjectBoardColumnIssueGap}>
+                </div>
+                <div
+                    className = {styles.appProjectBoardColumnIssueRow}>
+                        <span>{`I-${id}`}</span>
+                </div>
         </div>
     );
 }
