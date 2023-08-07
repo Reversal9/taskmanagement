@@ -7,6 +7,7 @@ import {
     selectInProgressIssues,
     selectDoneIssues
 } from './boardSlice';
+import { Team } from '../team/Team';
 import { Column } from './Column';
 import styles from './Board.module.css';
 
@@ -24,10 +25,7 @@ export function Board() {
                             className = {styles.appProjectHeaderName}>
                                 <h1>PN board</h1>
                         </div>
-                        <div
-                            className = {styles.appProjectHeaderAssignees}>
-
-                        </div>
+                        <Team />
                 </div>
 
                 <div
