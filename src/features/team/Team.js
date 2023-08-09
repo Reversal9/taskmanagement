@@ -9,7 +9,7 @@ import {
 import {
     incrementMemberId,
     selectNewMemberId
-} from '../id/idSlice'
+} from '../id/idSlice';
 import { Modal } from './Modal';
 import styles from './Team.module.css';
 
@@ -73,6 +73,11 @@ export function Team() {
                         })
                         setShouldShow(true);
                     }}>
+                        <img
+                            className = {styles.teamAddMemberIcon}
+                            src = "icons/user-plus-solid.svg"
+                            alt = "+"
+                        />
                 </button>
 
                 <Modal
@@ -126,12 +131,16 @@ export function Team() {
                                     return <button
                                         className = {styles.modalBodyFormColorButton}
                                         style = {{
-                                            backgroundColor: color,
-                                            outlineColor: (color === selectedColor) ? "#4382f7" : "",
+                                            backgroundColor: color
                                         }}
                                         onClick = {() => {
                                             handleColorChange(color);
                                         }}>
+                                            {(color === selectedColor) && <img
+                                                className = {styles.modalBodyFormColorButtonSelected}
+                                                src = "icons/check-solid.svg"
+                                                alt = "&#10004;"
+                                            />}
                                     </button>
                                 })}
                         </div>
@@ -142,12 +151,16 @@ export function Team() {
                                 return <button
                                     className = {styles.modalBodyFormColorButton}
                                     style = {{
-                                        backgroundColor: color,
-                                        outlineColor: (color === selectedColor) ? "#4382f7" : "",
+                                        backgroundColor: color
                                     }}
                                     onClick = {() => {
                                         handleColorChange(color);
                                     }}>
+                                        {(color === selectedColor) && <img
+                                            className = {styles.modalBodyFormColorButtonSelected}
+                                            src = "icons/check-solid.svg"
+                                            alt = "&#10004;"
+                                        />}
                                 </button>
                             })}
                         </div>
@@ -163,6 +176,7 @@ export function Team() {
                                 <button
                                     className = {styles.modalBodyFormConfirmButton}
                                     onClick = {() => {
+                                        // Check if inputs are filled or not
                                         dispatch(addMember(newMember));
                                         handleCloseForm();
                                     }}>

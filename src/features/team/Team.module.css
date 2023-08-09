@@ -24,6 +24,10 @@
     border: none;
 }
 
+.teamAddMemberIcon {
+    filter: invert(54%) sepia(14%) saturate(396%) hue-rotate(180deg) brightness(94%) contrast(92%);
+}
+
 .modalBackground {
     position: fixed;
     z-index: 3;
@@ -119,6 +123,11 @@
 }
 
 .modalBodyFormColorButton {
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -127,4 +136,14 @@
     justify-content: center;
     border: none;
     cursor: pointer;
+    transition: filter 0.2s ease-in-out;
+}
+
+.modalBodyFormColorButton:hover {
+    filter: brightness(0.7);
+}
+
+.modalBodyFormColorButtonSelected img {
+    filter: invert(0%) sepia(67%) saturate(7500%) hue-rotate(170deg) brightness(115%) contrast(112%);
+    transition: filter 0.2s ease-in-out;
 }
