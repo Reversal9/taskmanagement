@@ -32,17 +32,17 @@ export function Board() {
                     className = {styles.appProjectBoard}>
                         <Column
                             title = {toDo.title}
-                            listId = {toDo.id}
+                            listId = {toDo.listId}
                             selectIssues = {selectToDoIssues}
                         />
                         <Column
                             title = {inProgress.title}
-                            listId = {inProgress.id}
+                            listId = {inProgress.listId}
                             selectIssues = {selectInProgressIssues}
                         />
                         <Column
                             title = {done.title}
-                            listId = {done.id}
+                            listId = {done.listId}
                             selectIssues = {selectDoneIssues}
                         />
                 </div>

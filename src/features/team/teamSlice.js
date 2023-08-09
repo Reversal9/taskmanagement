@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     members: [
-        {id: 1, firstName: "Bob", lastName: "Ross", color: "red"},
-        {id: 2, firstName: "Chris", lastName: "Toms", color: "rebeccapurple"}
+        {memberId: 1, firstName: "Bob", lastName: "Ross", color: "red"},
+        {memberId: 2, firstName: "Chris", lastName: "Toms", color: "rebeccapurple"}
     ]
 };
 
@@ -15,10 +15,10 @@ export const teamSlice = createSlice({
             state.members.push(action.payload);
         },
         removeMember: (state, action) => {
-            state.members.map(member => member.id !== action.payload.id);
+            state.members.map(member => member.memberId !== action.payload.memberId);
         },
         editMember: (state, action) => {
-            state.members.find(member => member.id === action.payload.id)[action.payload.name] = action.payload.value;
+            state.members.find(member => member.memberId === action.payload.memberId)[action.payload.name] = action.payload.value;
         }
     },
 });

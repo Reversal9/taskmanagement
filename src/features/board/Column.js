@@ -5,14 +5,14 @@ import {
     addIssue
 } from './boardSlice';
 import {
-    selectId,
-    increment
+    incrementIssueId,
+    selectNewIssueId
 } from '../id/idSlice'
 import { Issue } from './Issue'
 import styles from './Board.module.css';
 
 export function Column({title, listId, selectIssues}) {
-    const id = useSelector(selectId);
+    const newIssueId = useSelector(selectNewIssueId);
     const issues = useSelector(selectIssues);
     const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ export function Column({title, listId, selectIssues}) {
 
                 {issues.map(issue => {
                     return <Issue
-                        id = {issue.id}
+                        issueId = {issue.issueId}
                         summary = {issue.summary}
                         assignees = {issue.assignees}
                     />
@@ -43,7 +43,7 @@ export function Column({title, listId, selectIssues}) {
 
                 {isAddingIssue ? (
                     <div
-                        className ={styles.appProjectBoardColumnAddIssue}>
+                        className = {styles.appProjectBoardColumnAddIssue}>
                             <input
                                 type = "text"
                                 name = "summary"
@@ -57,7 +57,7 @@ export function Column({title, listId, selectIssues}) {
                                 className = {styles.appProjectBoardColumnAddIssueConfirmButton}
                                 onClick = {() => {
                                     dispatch(addIssue(newIssue));
-                                    dispatch(increment());
+                                    dispatch(incrementIssueId());
                                     setNewIssue(null);
                                     setIsAddingIssue(false);
                                 }}>
@@ -65,17 +65,17 @@ export function Column({title, listId, selectIssues}) {
                     </div>
                 ) : (
                     <button
-                        className = {`${styles.appProjectBoardColumnAddButton} ${listId === toDo.id ? "" : styles.showOnHoverButton}`}
+                        className = {`${styles.appProjectBoardColumnAddButton} ${listId === toDo.listId ? "" : styles.showOnHoverButton}`}
                         onClick = {() => {
                             setNewIssue({
-                                id: id,
+                                issueId: newIssueId,
                                 summary: "",
                                 assignees: [],
                                 listId: listId
                             });
                             setIsAddingIssue(true);
                         }}>
-                        + Create issue
+                            + Create issue
                     </button>
                 )}
         </div>

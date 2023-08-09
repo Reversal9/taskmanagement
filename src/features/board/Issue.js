@@ -5,12 +5,12 @@ import {
 } from './boardSlice';
 import styles from './Board.module.css';
 
-export function Issue({id, summary, assignees}) {
+export function Issue({issueId, summary, assignees}) {
     const dispatch = useDispatch();
 
     function handleSummaryChange(summary) {
         dispatch(editSummary({
-            id: id,
+            issueId: issueId,
             summary: summary,
             assignees: assignees
         }));
@@ -36,7 +36,7 @@ export function Issue({id, summary, assignees}) {
                 </div>
                 <div
                     className = {styles.appProjectBoardColumnIssueRow}>
-                        <span>{`I-${id}`}</span>
+                        <span>{`I-${issueId}`}</span>
                 </div>
         </div>
     );
