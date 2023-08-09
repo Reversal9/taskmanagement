@@ -11,7 +11,7 @@ import {
 import { Issue } from './Issue'
 import styles from './Board.module.css';
 
-export function Column({title, listId, selectIssues}) {
+export function Column({ title, listId, selectIssues }) {
     const newIssueId = useSelector(selectNewIssueId);
     const issues = useSelector(selectIssues);
     const dispatch = useDispatch();
@@ -49,9 +49,7 @@ export function Column({title, listId, selectIssues}) {
                                 name = "summary"
                                 placeholder = "What needs to be done?"
                                 value = {newIssue.summary}
-                                onChange = {(e) => {
-                                    handleSummaryChange(e.target.value);
-                                }}
+                                onChange = {(e) => handleSummaryChange(e.target.value)}
                             />
                             <button
                                 className = {styles.appProjectBoardColumnAddIssueConfirmButton}

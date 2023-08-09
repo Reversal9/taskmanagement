@@ -55,6 +55,11 @@
     margin-bottom: 25px;
 }
 
+.modalBodyFormInputField {
+    display: flex;
+    flex-direction: column;
+}
+
 .modalBodyFormLabel {
     color: #6b778c;
     font-size: 12px;

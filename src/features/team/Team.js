@@ -10,7 +10,10 @@ import {
     incrementMemberId,
     selectNewMemberId
 } from '../id/idSlice';
+import { TeamMember } from './TeamMember';
 import { Modal } from './Modal';
+import {InputField} from "./InputField";
+import {ColorButton} from "./ColorButton";
 import styles from './Team.module.css';
 
 export function Team() {
@@ -53,13 +56,10 @@ export function Team() {
         <div
             className = {styles.team}>
                 {members.map(member => {
-                    return <div
-                        className = {styles.teamMemberIcon}
-                        style = {{
-                            backgroundColor: member.color
-                        }}>
-                            {getInitials(member)}
-                    </div>
+                    return <TeamMember
+                        initials = {getInitials(member)}
+                        color = {member.color}
+                    />
                 })}
 
                 <button
@@ -88,36 +88,20 @@ export function Team() {
                                 Add People
                         </span>
 
-                        <span
-                            className = {styles.modalBodyFormLabel}>
-                                First Name
-                        </span>
-
-                        <input
-                            className = {styles.modalBodyFormInput}
-                            type = "text"
+                        <InputField
+                            header = "First Name"
                             name = "firstName"
                             placeholder = "John"
                             value = {newMember?.firstName}
-                            onChange = {(e) => {
-                                handleNameChange(e.target.name, e.target.value);
-                            }}
+                            onChange = {(e) => handleNameChange(e.target.name, e.target.value)}
                         />
 
-                        <span
-                            className = {styles.modalBodyFormLabel}>
-                                Last Name
-                        </span>
-
-                        <input
-                            className = {styles.modalBodyFormInput}
-                            type = "text"
+                        <InputField
+                            header = "Last Name"
                             name = "lastName"
                             placeholder = "Doe"
                             value = {newMember?.lastName}
-                            onChange = {(e) => {
-                                handleNameChange(e.target.name, e.target.value);
-                            }}
+                            onChange = {(e) => handleNameChange(e.target.name, e.target.value)}
                         />
 
                         <span
@@ -128,40 +112,26 @@ export function Team() {
                         <div
                             className = {styles.modalBodyFormColors}>
                                 {colors.slice(0,6).map(color => {
-                                    return <button
-                                        className = {styles.modalBodyFormColorButton}
-                                        style = {{
-                                            backgroundColor: color
-                                        }}
+                                    return <ColorButton
+                                        color = {color}
                                         onClick = {() => {
-                                            handleColorChange(color);
-                                        }}>
-                                            {(color === selectedColor) && <img
-                                                className = {styles.modalBodyFormColorButtonSelected}
-                                                src = "icons/check-solid.svg"
-                                                alt = "&#10004;"
-                                            />}
-                                    </button>
+                                            handleColorChange(color)
+                                        }}
+                                        isSelected = {color === selectedColor}
+                                    />
                                 })}
                         </div>
 
                         <div
                             className = {styles.modalBodyFormColors}>
                             {colors.slice(6).map(color => {
-                                return <button
-                                    className = {styles.modalBodyFormColorButton}
-                                    style = {{
-                                        backgroundColor: color
-                                    }}
+                                return <ColorButton
+                                    color = {color}
                                     onClick = {() => {
-                                        handleColorChange(color);
-                                    }}>
-                                        {(color === selectedColor) && <img
-                                            className = {styles.modalBodyFormColorButtonSelected}
-                                            src = "icons/check-solid.svg"
-                                            alt = "&#10004;"
-                                        />}
-                                </button>
+                                        handleColorChange(color)
+                                    }}
+                                    isSelected = {color === selectedColor}
+                                />
                             })}
                         </div>
 

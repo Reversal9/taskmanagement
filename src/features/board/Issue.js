@@ -5,7 +5,7 @@ import {
 } from './boardSlice';
 import styles from './Board.module.css';
 
-export function Issue({issueId, summary, assignees}) {
+export function Issue({ issueId, summary, assignees }) {
     const dispatch = useDispatch();
 
     function handleSummaryChange(summary) {
@@ -26,9 +26,7 @@ export function Issue({issueId, summary, assignees}) {
                             name = "summary"
                             placeholder = "What needs to be done?"
                             value = {summary}
-                            onChange = {(e) => {
-                                handleSummaryChange(e.target.value);
-                            }}
+                            onChange = {(e) => handleSummaryChange(e.target.value)}
                         />
                 </div>
                 <div
