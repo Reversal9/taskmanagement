@@ -10,6 +10,7 @@ import {
     incrementMemberId,
     selectNewMemberId
 } from '../id/idSlice';
+import colors from './colors';
 import { TeamMember } from './TeamMember';
 import { Modal } from './Modal';
 import {InputField} from "./InputField";
@@ -35,22 +36,25 @@ export function Team() {
     function handleCloseForm() {
         setSelectedColor(colors[0]);
         setNewMember(null);
+        setIsEditing(false);
         setShouldShow(false);
+    }
+
+    function handleEditMember(member) {
+        setNewMember({...member});
+        setSelectedColor(member.color);
+        setIsEditing(true);
+        setShouldShow(true);
     }
 
     function getInitials(member) {
         return `${member.firstName ? member.firstName[0] : ""}${member.lastName ? member.lastName[0] : ""}`;
     }
 
-    const colors = [
-        "#a4262c", "#ca5010", "#bf7034", "#407855",
-        "#038387", "#40587c", "#0078d4", "#4052ab",
-        "#854085", "#8764b8", "#737373", "#b67365"
-    ]
-
     const [newMember, setNewMember] = useState(null);
     const [selectedColor, setSelectedColor] = useState(colors[0]);
     const [shouldShow, setShouldShow] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
 
     return (
         <div
@@ -59,6 +63,7 @@ export function Team() {
                     return <TeamMember
                         initials = {getInitials(member)}
                         color = {member.color}
+                        onClick = {() => handleEditMember(member)}
                     />
                 })}
 
@@ -69,8 +74,8 @@ export function Team() {
                             memberId: newMemberId,
                             firstName: "",
                             lastName: "",
-                            color: ""
-                        })
+                            color: colors[0]
+                        });
                         setShouldShow(true);
                     }}>
                         <img
@@ -85,7 +90,7 @@ export function Team() {
                     onRequestClose = {() => setShouldShow(false)}>
                         <span
                             className = {styles.modalBodyFormTitle}>
-                                Add People
+                                {isEditing ? "Edit Person" : "Add People"}
                         </span>
 
                         <InputField
@@ -147,10 +152,15 @@ export function Team() {
                                     className = {styles.modalBodyFormConfirmButton}
                                     onClick = {() => {
                                         // Check if inputs are filled or not
-                                        dispatch(addMember(newMember));
+                                        if (isEditing) {
+                                            dispatch(editMember(newMember));
+                                        } else {
+                                            dispatch(addMember(newMember));
+                                            dispatch(incrementMemberId);
+                                        }
                                         handleCloseForm();
                                     }}>
-                                        Add
+                                        {isEditing ? "Edit" : "Add"}
                                 </button>
                         </div>
                 </Modal>
