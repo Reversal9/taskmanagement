@@ -13,16 +13,9 @@ import {
 import colors from './colors';
 import { TeamMember } from './TeamMember';
 import { Modal } from './Modal';
-import {InputField} from "./InputField";
-import {ColorButton} from "./ColorButton";
+import { InputField } from "./InputField";
+import { ColorButton } from "./ColorButton";
 import styles from './Team.module.css';
-
-export function getInitials(member = null) {
-    if (!member) {
-        return null;
-    }
-    return `${member.firstName ? member.firstName[0] : ""}${member.lastName ? member.lastName[0] : ""}`;
-}
 
 export function Team() {
     const newMemberId = useSelector(selectNewMemberId);
@@ -64,9 +57,9 @@ export function Team() {
             className = {styles.team}>
                 {members.map(member => {
                     return <TeamMember
-                        initials = {getInitials(member)}
-                        color = {member.color}
+                        member = {member}
                         onClick = {() => handleEditMember(member)}
+                        showTooltip = {true}
                     />
                 })}
 
@@ -159,7 +152,8 @@ export function Team() {
                                             dispatch(editMember(newMember));
                                         } else {
                                             dispatch(addMember(newMember));
-                                            dispatch(incrementMemberId);
+                                            dispatch(incrementMemberId());
+                                            console.log("adding")
                                         }
                                         handleCloseForm();
                                     }}>

@@ -92,7 +92,7 @@
 .modalBodyFormButtons {
     height: 32px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     gap: 8px;
     flex-direction: row;
 }

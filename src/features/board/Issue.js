@@ -10,7 +10,6 @@ import {
 import { TeamMember } from '../team/TeamMember';
 import { DropdownContainer } from "./DropdownContainer";
 import { DropdownItem } from "./DropdownItem";
-import { getInitials } from '../team/Team';
 import styles from './Board.module.css';
 
 
@@ -77,14 +76,14 @@ export function Issue({ issueId, summary, assigneeId }) {
                             <div
                                 className = {styles.appProjectBoardColumnIssueRowEnd}>
                                     <TeamMember
-                                        // ref = {assignButtonRef}
-                                        initials = {getInitials(assignee)}
-                                        color = {assignee?.color}
+                                        // ref = {dropdownRef}
+                                        member = {assignee}
                                         onClick = {(e) => {
                                             setShowDropdown(prevState => !prevState);
                                             e.stopPropagation();
                                         }}
                                         unassigned = {!assignee}
+                                        showTooltip = {true}
                                     />
                             </div>
                     </div>

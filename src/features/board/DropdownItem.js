@@ -1,6 +1,5 @@
 import React from 'react';
-import { TeamMember } from '../team/TeamMember';
-import { getInitials } from '../team/Team';
+import { getFullName, TeamMember } from '../team/TeamMember';
 import styles from './Board.module.css';
 
 
@@ -10,11 +9,10 @@ export function DropdownItem({ member, onClick: handleClick, unassigned = false 
             className = {styles.appProjectBoardColumnIssueEditAssigneeDropdownItem}
             onClick = {handleClick}>
                 <TeamMember
-                    initials = {getInitials(member)}
-                    color = {member?.color}
+                    member = {member}
                     unassigned = {unassigned}
                 />
-                <span>{unassigned ? "Unassigned" : `${member.firstName} ${member.lastName}`.trim()}</span>
+                <span>{getFullName(member)}</span>
         </div>
     );
 }

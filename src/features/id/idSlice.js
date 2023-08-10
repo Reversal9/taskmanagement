@@ -11,9 +11,11 @@ export const idSlice = createSlice({
     reducers: {
         incrementIssueId: (state) => {
             state.newIssueId++;
+            console.log("why run")
         },
         incrementMemberId: (state) => {
             state.newMemberId++;
+            console.log("why is this not being run")
         }
     },
 });
