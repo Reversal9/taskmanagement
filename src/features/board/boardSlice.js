@@ -15,9 +15,9 @@ export const done = {
 
 const initialState = {
     issues: [
-        {issueId: 123, summary: "Bug during landing", assignees: [], listId: toDo.listId},
-        {issueId: 1233, summary: "Bug during this part", assignees: [], listId: inProgress.listId},
-        {issueId: 12333, summary: "Bug during that part", assignees: [], listId: done.listId},
+        {issueId: 123, summary: "Bug during landing", assigneeId: null, listId: toDo.listId},
+        {issueId: 1233, summary: "Bug during this part", assigneeId: null, listId: inProgress.listId},
+        {issueId: 12333, summary: "Bug during that part", assigneeId: null, listId: done.listId},
     ]
 };
 
@@ -30,13 +30,17 @@ export const boardSlice = createSlice({
         },
         editSummary: (state, action) => {
             state.issues.find(issue => issue.issueId === action.payload.issueId).summary = action.payload.summary;
+        },
+        editIssueAssigneeId: (state, action) => {
+            state.issues.find(issue => issue.issueId === action.payload.issueId).assigneeId = action.payload.assigneeId;
         }
     },
 });
 
 export const {
     addIssue,
-    editSummary
+    editSummary,
+    editIssueAssigneeId
 } = boardSlice.actions;
 
 export const selectToDoIssues = (state) => state.board.issues.filter(issue => issue.listId === toDo.listId);

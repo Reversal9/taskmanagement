@@ -37,7 +37,7 @@ export function Column({ title, listId, selectIssues }) {
                     return <Issue
                         issueId = {issue.issueId}
                         summary = {issue.summary}
-                        assignees = {issue.assignees}
+                        assigneeId = {issue.assigneeId}
                     />
                 })}
 
@@ -68,7 +68,7 @@ export function Column({ title, listId, selectIssues }) {
                             setNewIssue({
                                 issueId: newIssueId,
                                 summary: "",
-                                assignees: [],
+                                assignee: null,
                                 listId: listId
                             });
                             setIsAddingIssue(true);

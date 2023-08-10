@@ -17,6 +17,13 @@ import {InputField} from "./InputField";
 import {ColorButton} from "./ColorButton";
 import styles from './Team.module.css';
 
+export function getInitials(member = null) {
+    if (!member) {
+        return null;
+    }
+    return `${member.firstName ? member.firstName[0] : ""}${member.lastName ? member.lastName[0] : ""}`;
+}
+
 export function Team() {
     const newMemberId = useSelector(selectNewMemberId);
     const members = useSelector(selectMembers);
@@ -45,10 +52,6 @@ export function Team() {
         setSelectedColor(member.color);
         setIsEditing(true);
         setShouldShow(true);
-    }
-
-    function getInitials(member) {
-        return `${member.firstName ? member.firstName[0] : ""}${member.lastName ? member.lastName[0] : ""}`;
     }
 
     const [newMember, setNewMember] = useState(null);

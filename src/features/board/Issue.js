@@ -1,41 +1,110 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
-    editSummary
+    editSummary,
+    editIssueAssigneeId
 } from './boardSlice';
+import {
+    selectMembers
+} from '../team/teamSlice';
+import { TeamMember } from '../team/TeamMember';
+import { DropdownContainer } from "./DropdownContainer";
+import { DropdownItem } from "./DropdownItem";
+import { getInitials } from '../team/Team';
 import styles from './Board.module.css';
 
-export function Issue({ issueId, summary, assignees }) {
+
+
+export function Issue({ issueId, summary, assigneeId }) {
+    const members = useSelector(selectMembers);
+    const assignee = members.find(member => member.memberId === assigneeId);
     const dispatch = useDispatch();
+
+    const [showDropdown, setShowDropdown] = useState(false);
+    //const assignButtonRef = useRef(null);
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
+    function handleClick(member) {
+        dispatch(editIssueAssigneeId({
+            issueId: issueId,
+            assigneeId: member.memberId
+        }));
+        setShowDropdown(false);
+    }
 
     function handleSummaryChange(summary) {
         dispatch(editSummary({
             issueId: issueId,
-            summary: summary,
-            assignees: assignees
+            summary: summary
         }));
     }
 
+    function handleClickOutside(e) {
+        if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+            setShowDropdown(false);
+        }
+    }
+
     return (
-        <div
-            className = {styles.appProjectBoardColumnIssue}>
-                <div
-                    className = {styles.appProjectBoardColumnIssueRow}>
-                        <input
-                            type = "text"
-                            name = "summary"
-                            placeholder = "What needs to be done?"
-                            value = {summary}
-                            onChange = {(e) => handleSummaryChange(e.target.value)}
-                        />
-                </div>
-                <div
-                    className = {styles.appProjectBoardColumnIssueGap}>
-                </div>
-                <div
-                    className = {styles.appProjectBoardColumnIssueRow}>
-                        <span>{`I-${issueId}`}</span>
-                </div>
+        <div>
+            <div
+                className = {styles.appProjectBoardColumnIssue}>
+                    <div
+                        className = {styles.appProjectBoardColumnIssueRow}>
+                            <input
+                                type = "text"
+                                name = "summary"
+                                placeholder = "What needs to be done?"
+                                value = {summary}
+                                onChange = {(e) => handleSummaryChange(e.target.value)}
+                            />
+                    </div>
+                    <div
+                        className = {styles.appProjectBoardColumnIssueGap}>
+                    </div>
+                    <div
+                        className = {styles.appProjectBoardColumnIssueRow}>
+                            <span>{`I-${issueId}`}</span>
+
+                            <div
+                                className = {styles.appProjectBoardColumnIssueRowEnd}>
+                                    <TeamMember
+                                        // ref = {assignButtonRef}
+                                        initials = {getInitials(assignee)}
+                                        color = {assignee?.color}
+                                        onClick = {(e) => {
+                                            setShowDropdown(prevState => !prevState);
+                                            e.stopPropagation();
+                                        }}
+                                        unassigned = {!assignee}
+                                    />
+                            </div>
+                    </div>
+            </div>
+
+            {showDropdown && <DropdownContainer
+                dropdownRef = {dropdownRef}>
+                {assignee ? <DropdownItem
+                    onClick = {() => handleClick({
+                        memberId: null
+                    })}
+                    unassigned = {true}
+                /> : null}
+                {members.map(member => {
+                    return (member.memberId !== assignee?.memberId) ? <DropdownItem
+                        member = {member}
+                        onClick = {() => handleClick(member)}
+                    /> : null
+                })}
+            </DropdownContainer>}
         </div>
     );
 }
