@@ -48,6 +48,9 @@ export const boardSlice = createSlice({
         },
         editColumn: (state, action) => {
             state.columns[action.payload.columnId] = action.payload;
+        },
+        editColumnOrder: (state, action) => {
+            state.columnOrder = action.payload;
         }
     },
 });
@@ -56,7 +59,8 @@ export const {
     addIssue,
     editSummary,
     editIssueAssigneeId,
-    editColumn
+    editColumn,
+    editColumnOrder
 } = boardSlice.actions;
 
 export const selectIssues = (state) => state.board.issues;

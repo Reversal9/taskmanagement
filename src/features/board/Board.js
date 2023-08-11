@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import {
     editColumn,
+    editColumnOrder,
     selectIssues,
     selectColumns,
     selectColumnOrder
@@ -17,12 +18,20 @@ export function Board() {
     const columnOrder = useSelector(selectColumnOrder);
     const dispatch = useDispatch();
 
-    function onDragEnd({ destination, source, draggableId }) {
+    function onDragEnd({ destination, source, draggableId, type }) {
         if (!destination) {
             return;
         }
 
         if (source.droppableId === destination.droppableId && source.index === destination.index) {
+            return;
+        }
+
+        if (type === 'column') {
+            const newColumnOrder = Array.from(columnOrder);
+            newColumnOrder.splice(source.index, 1);
+            newColumnOrder.splice(destination.index, 0, draggableId);
+            dispatch(editColumnOrder(newColumnOrder));
             return;
         }
 
@@ -65,19 +74,31 @@ export function Board() {
 
                 <DragDropContext
                     onDragEnd = {onDragEnd}>
-                    <div
-                        className = {styles.appProjectBoard}>
-                            {columnOrder.map(columnId => {
-                                const column = columns[columnId];
-                                const mappedIssues = column.issueIds.map(issueId => issues[issueId]);
+                    <Droppable
+                        droppableId = "all-columns"
+                        direction = "horizontal"
+                        type = "column"
+                        >
+                            {(provided) => {
+                                return <div
+                                    className = {styles.appProjectBoard}
+                                    ref = {provided.innerRef}
+                                    {...provided.droppableProps}>
+                                    {columnOrder.map((columnId, index) => {
+                                        const column = columns[columnId];
+                                        const mappedIssues = column.issueIds.map(issueId => issues[issueId]);
 
-                                return <Column
-                                    key = {column.columnId}
-                                    column = {column}
-                                    issues = {mappedIssues}
-                                />
-                            })}
-                    </div>
+                                        return <Column
+                                            key = {column.columnId}
+                                            index = {index}
+                                            column = {column}
+                                            issues = {mappedIssues}
+                                        />
+                                    })}
+                                    {provided.placeholder}
+                                </div>
+                            }}
+                    </Droppable>
                 </DragDropContext>
         </div>
     );
