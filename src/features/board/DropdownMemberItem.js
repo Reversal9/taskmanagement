@@ -3,7 +3,7 @@ import { getFullName, TeamMember } from '../team/TeamMember';
 import styles from './Board.module.css';
 
 
-export function DropdownItem({ member, onClick: handleClick, unassigned = false }) {
+export function DropdownMemberItem({ member, onClick: handleClick, unassigned = false }) {
     return (
         <div
             className = {styles.appProjectBoardColumnIssueEditAssigneeDropdownItem}
@@ -15,4 +15,14 @@ export function DropdownItem({ member, onClick: handleClick, unassigned = false 
                 <span>{getFullName(member)}</span>
         </div>
     );
+}
+
+export function DropdownItem({ children, onClick: handleClick }) {
+    return (
+        <div
+            className = {styles.appProjectBoardColumnIssueMoreButtonDropdownItem}
+            onClick = {handleClick}>
+                {children}
+        </div>
+    )
 }

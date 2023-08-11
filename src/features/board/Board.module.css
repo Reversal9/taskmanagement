@@ -144,9 +144,68 @@
     background-color: #dfe1e5;
 }
 
+.appProjectBoardColumnIssueMoreButton {
+    border-radius: 4px;
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #f4f5f7;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.appProjectBoardColumnIssueMoreButton span {
+    font-weight: bolder;
+    color: gray;
+    letter-spacing: 2px;
+}
+
+.appProjectBoardColumnIssueMoreButton:hover {
+    background-color: #dfe1e5;
+}
+
+.appProjectBoardColumnIssueMoreButtonDropdown {
+    display: flex;
+    flex-direction: column;
+    z-index: 4;
+    position: absolute;
+    background-color: #fff;
+    width: fit-content;
+    outline: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    transform: translateX(45px) translateY(45px);
+    padding: 4px 0 4px 0;
+}
+
+.appProjectBoardColumnIssueMoreButtonDropdownItem {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    width: 160px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    align-items: center;
+    padding: 0 12px;
+}
+
+.appProjectBoardColumnIssueMoreButtonDropdownItem span {
+    color: #404c68;
+    font-size: 14px;
+    padding: 0 8px;
+}
+
+.appProjectBoardColumnIssueMoreButtonDropdownItem:hover {
+    background-color: #f4f5f7;
+}
+
 .appProjectBoardColumnIssueRow {
     display: flex;
     flex-direction: row;
+    gap: 4px;
 }
 
 .appProjectBoardColumnIssueRowEnd {
@@ -163,10 +222,11 @@
     z-index: 4;
     position: absolute;
     background-color: #fff;
-    width: 256px;
+    width: 250px;
     outline: 1px solid #ccc;
     border-radius: 4px;
     overflow: hidden;
+    transform: translateX(-10px);
 }
 
 .appProjectBoardColumnIssueEditAssigneeDropdownItem {
@@ -181,7 +241,7 @@
 }
 
 .appProjectBoardColumnIssueEditAssigneeDropdownItem span {
-    color: #000;
+    color: #404c68;
     padding: 0 8px;
 }
 

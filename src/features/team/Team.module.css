@@ -20,6 +20,11 @@
     color: white;
     text-transform: uppercase;
     cursor: pointer;
+    transition: filter 0.2s ease-in-out;
+}
+
+.teamMemberIcon:hover {
+    filter: brightness(0.8);
 }
 
 .teamAddMember {
