@@ -14,9 +14,9 @@ import styles from './Board.module.css';
 
 
 
-export function Issue({ issueId, summary, assigneeId }) {
+export function Issue({ issue }) {
     const members = useSelector(selectMembers);
-    const assignee = members.find(member => member.memberId === assigneeId);
+    const assignee = members.find(member => member.memberId === issue.assigneeId);
     const dispatch = useDispatch();
 
     const [showDropdown, setShowDropdown] = useState(false);
@@ -33,7 +33,7 @@ export function Issue({ issueId, summary, assigneeId }) {
 
     function handleClick(member) {
         dispatch(editIssueAssigneeId({
-            issueId: issueId,
+            issueId: issue.issueId,
             assigneeId: member.memberId
         }));
         setShowDropdown(false);
@@ -41,7 +41,7 @@ export function Issue({ issueId, summary, assigneeId }) {
 
     function handleSummaryChange(summary) {
         dispatch(editSummary({
-            issueId: issueId,
+            issueId: issue.issueId,
             summary: summary
         }));
     }
@@ -62,7 +62,7 @@ export function Issue({ issueId, summary, assigneeId }) {
                                 type = "text"
                                 name = "summary"
                                 placeholder = "What needs to be done?"
-                                value = {summary}
+                                value = {issue.summary}
                                 onChange = {(e) => handleSummaryChange(e.target.value)}
                             />
                     </div>
@@ -71,7 +71,7 @@ export function Issue({ issueId, summary, assigneeId }) {
                     </div>
                     <div
                         className = {styles.appProjectBoardColumnIssueRow}>
-                            <span>{`I-${issueId}`}</span>
+                            <span>{`I-${issue.issueId}`}</span>
 
                             <div
                                 className = {styles.appProjectBoardColumnIssueRowEnd}>

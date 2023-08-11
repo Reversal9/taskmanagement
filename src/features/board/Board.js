@@ -1,50 +1,36 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
-    toDo,
-    inProgress,
-    done,
-    selectToDoIssues,
-    selectInProgressIssues,
-    selectDoneIssues
+    selectIssues,
+    selectColumns,
+    selectColumnOrder
 } from './boardSlice';
-import { Team } from '../team/Team';
+import { Header } from "./Header";
 import { Column } from './Column';
 import styles from './Board.module.css';
 
 export function Board() {
+    const issues = useSelector(selectIssues);
+    const columns = useSelector(selectColumns);
+    const columnOrder = useSelector(selectColumnOrder);
+
     return (
         <div
             className ={styles.appProject}>
-                <div
-                    className = {styles.appProjectHeader}>
-                        <div
-                            className = {styles.appProjectHeaderDirectory}>
-                                <span>Projects &nbsp; / &nbsp; Project Name</span>
-                        </div>
-                        <div
-                            className = {styles.appProjectHeaderName}>
-                                <h1>PN board</h1>
-                        </div>
-                        <Team />
-                </div>
+                <Header />
 
                 <div
                     className = {styles.appProjectBoard}>
-                        <Column
-                            title = {toDo.title}
-                            listId = {toDo.listId}
-                            selectIssues = {selectToDoIssues}
-                        />
-                        <Column
-                            title = {inProgress.title}
-                            listId = {inProgress.listId}
-                            selectIssues = {selectInProgressIssues}
-                        />
-                        <Column
-                            title = {done.title}
-                            listId = {done.listId}
-                            selectIssues = {selectDoneIssues}
-                        />
+                        {columnOrder.map(columnId => {
+                            const column = columns[columnId];
+                            const mappedIssues = column.issueIds.map(issueId => issues[issueId]);
+
+                            return <Column
+                                key = {column.columnId}
+                                column = {column}
+                                issues = {mappedIssues}
+                            />
+                        })}
                 </div>
         </div>
     );
