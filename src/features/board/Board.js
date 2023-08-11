@@ -26,23 +26,23 @@ export function Board() {
             return;
         }
 
-        if (source.droppableId === destination.droppableId) {
-            const column = columns[source.droppableId];
-            const newIssueIds = Array.from(column.issueIds);
+        const sourceColumn = columns[source.droppableId];
+        const destinationColumn = columns[destination.droppableId];
+
+        if (sourceColumn === destinationColumn) {
+            const newIssueIds = Array.from(sourceColumn.issueIds);
             newIssueIds.splice(source.index, 1);
             newIssueIds.splice(destination.index, 0, draggableId);
             const newColumn = {
-                ...column,
+                ...sourceColumn,
                 issueIds: newIssueIds
             }
             dispatch(editColumn(newColumn));
         }
 
-        if (source.droppableId !== destination.droppableId) {
-            const sourceColumn = columns[source.droppableId];
+        if (sourceColumn !== destinationColumn) {
             const newSourceIssueIds = Array.from(sourceColumn.issueIds);
             newSourceIssueIds.splice(source.index, 1);
-            const destinationColumn = columns[destination.droppableId];
             const newDestinationIssueIds = Array.from(destinationColumn.issueIds);
             newDestinationIssueIds.splice(destination.index, 0, draggableId);
             const newSourceColumn = {
