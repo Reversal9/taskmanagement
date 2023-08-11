@@ -108,7 +108,7 @@
     transition: opacity 0.05s ease-in-out;
 }
 
-.appProjectBoardColumn:hover .showOnHoverButton {
+.appProjectBoardColumnIssue:hover .showOnHoverButton {
     opacity: 1;
 }
 
@@ -122,9 +122,9 @@
     transition: background-color 0.2s ease-in-out;
 }
 
-.appProjectBoardColumnIssue:hover {
-    background-color: #f4f5f7;
-}
+/*.appProjectBoardColumnIssue:hover {*/
+/*    background-color: #f4f5f7;*/
+/*}*/
 
 .appProjectBoardColumnIssue input {
     padding: 10px 0 10px 2px;

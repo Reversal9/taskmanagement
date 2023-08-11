@@ -85,7 +85,7 @@ export function Issue({ index, issue }) {
                                     />
 
                                     <button
-                                        className = {styles.appProjectBoardColumnIssueMoreButton}
+                                        className = {`${styles.appProjectBoardColumnIssueMoreButton} ${styles.showOnHoverButton}`}
                                         onClick = {(e) => {
                                             setShowMoreDropdown(prevState => !prevState);
                                             e.stopPropagation();
