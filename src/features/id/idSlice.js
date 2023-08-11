@@ -23,7 +23,7 @@ export const {
     incrementMemberId
 } = idSlice.actions;
 
-export const selectNewIssueId = (state) => state.id.newIssueId;
-export const selectNewMemberId = (state) => state.id.newMemberId;
+export const selectNewIssueId = (state) => `I-${state.id.newIssueId}`;
+export const selectNewMemberId = (state) => `M-${state.id.newMemberId}`;
 
 export default idSlice.reducer;

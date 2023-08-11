@@ -153,7 +153,6 @@ export function Team() {
                                         } else {
                                             dispatch(addMember(newMember));
                                             dispatch(incrementMemberId());
-                                            console.log("adding")
                                         }
                                         handleCloseForm();
                                     }}>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { Droppable } from 'react-beautiful-dnd';
 import {
     addIssue
 } from './boardSlice';
@@ -7,7 +8,6 @@ import {
     incrementIssueId,
     selectNewIssueId
 } from '../id/idSlice'
-import { IssueList } from "./IssueList";
 import { Issue } from './Issue'
 import styles from './Board.module.css';
 
@@ -32,14 +32,23 @@ export function Column({ column, issues }) {
                         <span>{`${column.title} ${issues.length ? issues.length : "0"}`}</span>
                 </div>
 
-                <IssueList>
-                    {issues.map(issue => {
-                        return <Issue
-                            key = {issue.issueId}
-                            issue = {issue}
-                        />
-                    })}
-                </IssueList>
+                <Droppable
+                    droppableId = {column.columnId}>
+                        {(provided) => {
+                            return <div
+                                ref = {provided.innerRef}
+                                {...provided.droppableProps}>
+                                    {issues.map((issue, index) => {
+                                        return <Issue
+                                            key = {issue.issueId}
+                                            index = {index}
+                                            issue = {issue}
+                                        />
+                                    })}
+                                    {provided.placeholder}
+                            </div>
+                        }}
+                </Droppable>
 
                 {isAddingIssue ? (
                     <div
@@ -54,7 +63,10 @@ export function Column({ column, issues }) {
                             <button
                                 className = {styles.appProjectBoardColumnAddIssueConfirmButton}
                                 onClick = {() => {
-                                    dispatch(addIssue(newIssue));
+                                    dispatch(addIssue({
+                                        issue: newIssue,
+                                        columnId: column.columnId
+                                    }));
                                     dispatch(incrementIssueId());
                                     setNewIssue(null);
                                     setIsAddingIssue(false);

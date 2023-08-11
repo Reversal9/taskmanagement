@@ -2,31 +2,31 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     issues: {
-        'issue-1': {issueId: 'issue-1', summary: "Bug during landing", assigneeId: null},
-        'issue-2': {issueId: 'issue-2', summary: "Bug during this part", assigneeId: null},
-        'issue-3': {issueId: 'issue-3', summary: "Bug during that part", assigneeId: null},
-        'issue-4': {issueId: 'issue-4', summary: "Bug during landing", assigneeId: null},
-        'issue-5': {issueId: 'issue-5', summary: "Bug during this part", assigneeId: null},
-        'issue-6': {issueId: 'issue-6', summary: "Bug during that part", assigneeId: null},
-        'issue-7': {issueId: 'issue-7', summary: "Bug during landing", assigneeId: null},
-        'issue-8': {issueId: 'issue-8', summary: "Bug during this part", assigneeId: null},
-        'issue-9': {issueId: 'issue-9', summary: "Bug during that part", assigneeId: null},
+        'T-1': {issueId: 'T-1', summary: "Users unable to log in with valid credentials.", assigneeId: null},
+        'T-2': {issueId: 'T-2', summary: "Product prices are not being displayed correctly.", assigneeId: null},
+        'T-3': {issueId: 'T-3', summary: "Some images in the gallery do not load.", assigneeId: null},
+        'T-4': {issueId: 'T-4', summary: "Buttons on the main screen are misaligned.", assigneeId: null},
+        'T-5': {issueId: 'T-5', summary: "The app crashes immediately after launching.", assigneeId: null},
+        'T-6': {issueId: 'T-6', summary: "Notifications are showing up blank.", assigneeId: null},
+        'T-7': {issueId: 'T-7', summary: "Data entered in the app is not syncing properly.", assigneeId: null},
+        'T-8': {issueId: 'T-8', summary: "App significantly drains the device's battery.", assigneeId: null},
+        'T-9': {issueId: 'T-9', summary: "Text in some areas of the app overlaps itself.", assigneeId: null},
     },
     columns: {
         'column-1': {
             columnId: 'column-1',
             title: 'To Do',
-            issueIds: ['issue-1', 'issue-2', 'issue-3']
+            issueIds: ['T-1', 'T-2', 'T-3']
         },
         'column-2': {
             columnId: 'column-2',
             title: 'In Progress',
-            issueIds: ['issue-4', 'issue-5', 'issue-6']
+            issueIds: ['T-4', 'T-5', 'T-6']
         },
         'column-3': {
             columnId: 'column-3',
             title: 'Done',
-            issueIds: ['issue-7', 'issue-8', 'issue-9']
+            issueIds: ['T-7', 'T-8', 'T-9']
         }
     },
     columnOrder: ['column-1', 'column-2', 'column-3']
@@ -37,13 +37,17 @@ export const boardSlice = createSlice({
     initialState,
     reducers: {
         addIssue: (state, action) => {
-            state.issues[action.payload.issueId] = action.payload;
+            state.issues[action.payload.issue.issueId] = action.payload.issue;
+            state.columns[action.payload.columnId].issueIds.push(action.payload.issue.issueId);
         },
         editSummary: (state, action) => {
             state.issues[action.payload.issueId].summary = action.payload.summary;
         },
         editIssueAssigneeId: (state, action) => {
             state.issues[action.payload.issueId].assigneeId = action.payload.assigneeId;
+        },
+        editColumn: (state, action) => {
+            state.columns[action.payload.columnId] = action.payload;
         }
     },
 });
@@ -51,7 +55,8 @@ export const boardSlice = createSlice({
 export const {
     addIssue,
     editSummary,
-    editIssueAssigneeId
+    editIssueAssigneeId,
+    editColumn
 } = boardSlice.actions;
 
 export const selectIssues = (state) => state.board.issues;
