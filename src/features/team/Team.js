@@ -57,6 +57,7 @@ export function Team() {
             className = {styles.team}>
                 {members.map(member => {
                     return <TeamMember
+                        key = {member.memberId}
                         member = {member}
                         onClick = {() => handleEditMember(member)}
                         showTooltip = {true}
@@ -114,6 +115,7 @@ export function Team() {
                             className = {styles.modalBodyFormColors}>
                                 {colors.slice(0,6).map(color => {
                                     return <ColorButton
+                                        key = {color}
                                         color = {color}
                                         onClick = {() => {
                                             handleColorChange(color)
@@ -127,6 +129,7 @@ export function Team() {
                             className = {styles.modalBodyFormColors}>
                             {colors.slice(6).map(color => {
                                 return <ColorButton
+                                    key = {color}
                                     color = {color}
                                     onClick = {() => {
                                         handleColorChange(color)
