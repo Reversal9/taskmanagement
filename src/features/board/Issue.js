@@ -93,7 +93,7 @@ export function Issue({ index, issue }) {
                                 </div>
                             </div>
 
-                            {showDropdown && <DropdownContainer
+                            {(showDropdown && members.length > 0) && <DropdownContainer
                                 dropdownRef = {dropdownRef}>
                                 {assignee ? <DropdownItem
                                     onClick = {() => handleClick({
@@ -103,6 +103,7 @@ export function Issue({ index, issue }) {
                                 /> : null}
                                 {members.map(member => {
                                     return (member.memberId !== assignee?.memberId) ? <DropdownItem
+                                        key = {`DI-${member.memberId}`}
                                         member = {member}
                                         onClick = {() => handleClick(member)}
                                     /> : null

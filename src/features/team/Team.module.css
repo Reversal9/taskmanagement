@@ -97,9 +97,34 @@
 .modalBodyFormButtons {
     height: 32px;
     display: flex;
-    justify-content: flex-end;
-    gap: 8px;
     flex-direction: row;
+}
+
+.modalBodyFormButtonsLeft {
+    justify-content: flex-start;
+}
+
+.modalBodyFormButtonsRight {
+    justify-content: flex-end;
+    flex-direction: row;
+    display: flex;
+    flex: 1;
+    gap: 8px;
+}
+
+.modalBodyFormDeleteButton {
+    border-radius: 4px;
+    border: none;
+    background-color: #fff;
+    color: #ff0000;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px;
+    transition: background-color 0.05s ease;
+}
+
+.modalBodyFormDeleteButton:hover {
+    background-color: #dfe1e5;
 }
 
 .modalBodyFormCancelButton {

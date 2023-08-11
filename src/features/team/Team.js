@@ -7,6 +7,9 @@ import {
     selectMembers
 } from './teamSlice';
 import {
+    removeAssignee
+} from '../board/boardSlice';
+import {
     incrementMemberId,
     selectNewMemberId
 } from '../id/idSlice';
@@ -45,6 +48,12 @@ export function Team() {
         setSelectedColor(member.color);
         setIsEditing(true);
         setShouldShow(true);
+    }
+
+    function handleDeleteMember(member) {
+        dispatch(removeMember(member));
+        dispatch(removeAssignee(member));
+        handleCloseForm();
     }
 
     const [newMember, setNewMember] = useState(null);
@@ -117,9 +126,7 @@ export function Team() {
                                     return <ColorButton
                                         key = {color}
                                         color = {color}
-                                        onClick = {() => {
-                                            handleColorChange(color)
-                                        }}
+                                        onClick = {() => handleColorChange(color)}
                                         isSelected = {color === selectedColor}
                                     />
                                 })}
@@ -131,9 +138,7 @@ export function Team() {
                                 return <ColorButton
                                     key = {color}
                                     color = {color}
-                                    onClick = {() => {
-                                        handleColorChange(color)
-                                    }}
+                                    onClick = {() => handleColorChange(color)}
                                     isSelected = {color === selectedColor}
                                 />
                             })}
@@ -141,26 +146,37 @@ export function Team() {
 
                         <div
                             className = {styles.modalBodyFormButtons}>
-                                <button
-                                    className = {styles.modalBodyFormCancelButton}
-                                    onClick = {handleCloseForm}>
-                                        Cancel
-                                </button>
+                                <div
+                                    className = {styles.modalBodyFormButtonsLeft}>
+                                        {isEditing ? <button
+                                            className = {styles.modalBodyFormDeleteButton}
+                                            onClick = {() => handleDeleteMember(newMember)}>
+                                            Delete
+                                        </button> : null}
+                                </div>
+                                <div
+                                    className = {styles.modalBodyFormButtonsRight}>
+                                        <button
+                                            className = {styles.modalBodyFormCancelButton}
+                                            onClick = {handleCloseForm}>
+                                                Cancel
+                                        </button>
 
-                                <button
-                                    className = {styles.modalBodyFormConfirmButton}
-                                    onClick = {() => {
-                                        // Check if inputs are filled or not
-                                        if (isEditing) {
-                                            dispatch(editMember(newMember));
-                                        } else {
-                                            dispatch(addMember(newMember));
-                                            dispatch(incrementMemberId());
-                                        }
-                                        handleCloseForm();
-                                    }}>
-                                        {isEditing ? "Edit" : "Add"}
-                                </button>
+                                        <button
+                                            className = {styles.modalBodyFormConfirmButton}
+                                            onClick = {() => {
+                                                // Check if inputs are filled or not
+                                                if (isEditing) {
+                                                    dispatch(editMember(newMember));
+                                                } else {
+                                                    dispatch(addMember(newMember));
+                                                    dispatch(incrementMemberId());
+                                                }
+                                                handleCloseForm();
+                                            }}>
+                                                {isEditing ? "Edit" : "Add"}
+                                        </button>
+                                </div>
                         </div>
                 </Modal>
         </div>

@@ -51,6 +51,13 @@ export const boardSlice = createSlice({
         },
         editColumnOrder: (state, action) => {
             state.columnOrder = action.payload;
+        },
+        removeAssignee: (state, action) => {
+            for (let issue in state.issues) {
+                if (issue.assigneeId === action.payload.memberId) {
+                    issue['assigneeId'] = null;
+                }
+            }
         }
     },
 });
@@ -60,7 +67,8 @@ export const {
     editSummary,
     editIssueAssigneeId,
     editColumn,
-    editColumnOrder
+    editColumnOrder,
+    removeAssignee
 } = boardSlice.actions;
 
 export const selectIssues = (state) => state.board.issues;

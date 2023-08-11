@@ -15,7 +15,7 @@ export const teamSlice = createSlice({
             state.members.push(action.payload);
         },
         removeMember: (state, action) => {
-            state.members = state.members.map(member => member.memberId !== action.payload.memberId);
+            state.members = state.members.filter(member => member.memberId !== action.payload.memberId);
         },
         editMember: (state, action) => {
             state.members = state.members.map(member => {

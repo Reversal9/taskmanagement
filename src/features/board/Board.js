@@ -77,25 +77,24 @@ export function Board() {
                     <Droppable
                         droppableId = "all-columns"
                         direction = "horizontal"
-                        type = "column"
-                        >
+                        type = "column">
                             {(provided) => {
                                 return <div
                                     className = {styles.appProjectBoard}
                                     ref = {provided.innerRef}
-                                    {...provided.droppableProps}>
-                                    {columnOrder.map((columnId, index) => {
-                                        const column = columns[columnId];
-                                        const mappedIssues = column.issueIds.map(issueId => issues[issueId]);
+                                        {...provided.droppableProps}>
+                                        {columnOrder.map((columnId, index) => {
+                                            const column = columns[columnId];
+                                            const mappedIssues = column.issueIds.map(issueId => issues[issueId]);
 
-                                        return <Column
-                                            key = {column.columnId}
-                                            index = {index}
-                                            column = {column}
-                                            issues = {mappedIssues}
-                                        />
-                                    })}
-                                    {provided.placeholder}
+                                            return <Column
+                                                key = {column.columnId}
+                                                index = {index}
+                                                column = {column}
+                                                issues = {mappedIssues}
+                                            />
+                                        })}
+                                        {provided.placeholder}
                                 </div>
                             }}
                     </Droppable>

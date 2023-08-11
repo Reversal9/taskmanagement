@@ -20,7 +20,7 @@ export function TeamMember({ member, onClick: handleClick, unassigned = false, s
     return (
         <div
             className = {styles.teamMemberIcon}
-            title = {showTooltip && getFullName(member)}
+            title = {showTooltip ? getFullName(member) : undefined}
             style = {{
                 backgroundColor: (unassigned) ? "#8b93a2" : member.color
             }}
