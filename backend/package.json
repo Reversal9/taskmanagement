@@ -13,5 +13,6 @@
   "dependencies": {
     "express": "^4.18.2",
     "mongoose": "^7.4.3"
-  }
+  },
+  "type": "module"
 }
