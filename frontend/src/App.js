@@ -1,12 +1,22 @@
-import React from 'react';
-// import logo from './logo.svg';
-// import { Counter } from './features/counter/Counter';
+import React, { useEffect } from 'react';
 import { Navbar } from './features/navbar/Navbar';
 import { Sidebar } from './features/sidebar/Sidebar';
 import { Board } from './features/board/Board';
 import styles from './App.module.css';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchIssues, selectIssues } from "./features/board/boardSlice";
 
 function App() {
+    const dispatch = useDispatch();
+    const issues = useSelector(selectIssues);
+
+    console.log(issues);
+
+    useEffect(() => {
+        dispatch(fetchIssues());
+        console.log(issues);
+    }, []);
+
     return (
         <div
             className = {styles.app}>

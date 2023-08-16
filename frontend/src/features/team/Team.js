@@ -86,7 +86,7 @@ export function Team() {
                     }}>
                         <img
                             className = {styles.teamAddMemberIcon}
-                            src = "icons/user-plus-solid.svg"
+                            src = {"icons/user-plus-solid.svg"}
                             alt = "+"
                         />
                 </button>
